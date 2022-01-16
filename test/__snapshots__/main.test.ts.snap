@@ -1036,7 +1036,7 @@ Object {
           },
         ],
         "SourceObjectKeys": Array [
-          "85abc0b2f045ffdee40051ae947ba8f1744fe40b502081eae183781e20d9e1d8.zip",
+          "a6d122b5129678834482d23aa5e57a2f47e7ee9497039105508613d8bc0da239.zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",
