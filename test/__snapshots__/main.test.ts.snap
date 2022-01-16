@@ -1,0 +1,408 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "GatewayEndpoint4DF49EE0": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "Gateway43CB3636",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "GatewayDeploymentStageprod62BC6904",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+    "MyGatewayUrl": Object {
+      "Export": Object {
+        "Name": "my-gateway-url",
+      },
+      "Value": "https://gtw.marciocadev.com",
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "Gateway43CB3636": Object {
+      "Properties": Object {
+        "Name": "Gateway",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "GatewayAccount6D7AA49C": Object {
+      "DependsOn": Array [
+        "Gateway43CB3636",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "GatewayCloudWatchRole34305E06",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "GatewayCloudWatchRole34305E06": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GatewayDeployment880EB8C253dcc588c710e39797b4273cb4571981": Object {
+      "DependsOn": Array [
+        "GatewayapigetGET6B407B27",
+        "Gatewayapiget7538BB82",
+        "GatewayapiE09892A9",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "GatewayDeploymentStageprod62BC6904": Object {
+      "DependsOn": Array [
+        "GatewayAccount6D7AA49C",
+      ],
+      "Properties": Object {
+        "DeploymentId": Object {
+          "Ref": "GatewayDeployment880EB8C253dcc588c710e39797b4273cb4571981",
+        },
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "GatewayDomainA47DB049": Object {
+      "Properties": Object {
+        "DomainName": "gtw.marciocadev.com",
+        "EndpointConfiguration": Object {
+          "Types": Array [
+            "REGIONAL",
+          ],
+        },
+        "RegionalCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+      },
+      "Type": "AWS::ApiGateway::DomainName",
+    },
+    "GatewayDomainF5A8AD5B": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "GatewayDomainA47DB049",
+              "RegionalDomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::GetAtt": Array [
+              "GatewayDomainA47DB049",
+              "RegionalHostedZoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "gtw.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "GatewayDomainMaptestGateway3EC630963EEEC61D": Object {
+      "Properties": Object {
+        "DomainName": Object {
+          "Ref": "GatewayDomainA47DB049",
+        },
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+        "Stage": Object {
+          "Ref": "GatewayDeploymentStageprod62BC6904",
+        },
+      },
+      "Type": "AWS::ApiGateway::BasePathMapping",
+    },
+    "GatewayLambda679C3A36": Object {
+      "DependsOn": Array [
+        "GatewayLambdaServiceRole5CBBCC4B",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "68fd09772428b51c7a035ade02abb7f30ac51f6a0c763e72d23f1420b46bcbdf.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "FunctionName": "GatewayDomainLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "GatewayLambdaServiceRole5CBBCC4B",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "GatewayLambdaServiceRole5CBBCC4B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GatewayapiE09892A9": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Fn::GetAtt": Array [
+            "Gateway43CB3636",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "api",
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "Gatewayapiget7538BB82": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Ref": "GatewayapiE09892A9",
+        },
+        "PathPart": "get",
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "GatewayapigetGET6B407B27": Object {
+      "Properties": Object {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "GatewayLambda679C3A36",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "Gatewayapiget7538BB82",
+        },
+        "RestApiId": Object {
+          "Ref": "Gateway43CB3636",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "GatewayapigetGETApiPermissionTesttestGateway3EC63096GETapigetF0BE258D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GatewayLambda679C3A36",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "Gateway43CB3636",
+              },
+              "/test-invoke-stage/GET/api/get",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayapigetGETApiPermissiontestGateway3EC63096GETapiget2A600342": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GatewayLambda679C3A36",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "Gateway43CB3636",
+              },
+              "/",
+              Object {
+                "Ref": "GatewayDeploymentStageprod62BC6904",
+              },
+              "/GET/api/get",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

@@ -1,13 +1,20 @@
 import { awscdk } from "projen";
+
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: "2.8.0",
   defaultReleaseBranch: "main",
   name: "aws-custom-domain",
   projenrcTs: true,
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  codeCov: true,
+
+  prettier: true,
+  eslint: true,
+  tsconfig: {
+    compilerOptions: {
+      lib: ["dom", "es2019"],
+    },
+  },
 });
+
 project.synth();
