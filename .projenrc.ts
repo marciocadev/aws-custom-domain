@@ -6,6 +6,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   name: "aws-custom-domain",
   projenrcTs: true,
 
+  release: true,
+
   codeCov: true,
 
   prettier: true,
