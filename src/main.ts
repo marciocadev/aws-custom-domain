@@ -1,8 +1,10 @@
 import { join } from "path";
-import { App, CfnOutput, StackProps } from "aws-cdk-lib";
+import { App, CfnOutput, RemovalPolicy, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration, LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 import { CustomDomainStack } from "./custom-domain";
 
@@ -33,6 +35,52 @@ export class MyStack extends CustomDomainStack {
     new CfnOutput(this, "MyGatewayUrl", {
       value: gatewayUrl,
       exportName: "my-gateway-url",
+    });
+
+    const siteDomain = "marciocadev.com";
+    // Cria o bucket
+    const siteBucket = new Bucket(this, "MySiteBucket", {
+      bucketName: siteDomain,
+      websiteIndexDocument: "index.html",
+      websiteErrorDocument: "error.html",
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      publicReadAccess: true,
+    });
+    // Faz o deploy do site no bucket
+    new BucketDeployment(this, "MyBucketDeployment", {
+      sources: [Source.asset("src/website")],
+      destinationBucket: siteBucket,
+      destinationKeyPrefix: "/",
+    });
+    // Cria uma lambda para teste com cloudfront
+    const cfLambda = new NodejsFunction(this, "CloudfrontLambda", {
+      functionName: "CloudfrontDomainLambda",
+      entry: join(__dirname, "lambda-fns/cloudfront/index.ts"),
+      handler: "handler",
+      runtime: Runtime.NODEJS_14_X,
+    });
+    // Integra a lambda a um ApiGateway
+    const gatewayCloudfront = new LambdaRestApi(this, "GatewayCloudfront", {
+      handler: cfLambda,
+      proxy: false,
+    });
+    // Cria os paths /api/get
+    const apiCFResource = gatewayCloudfront.root.addResource("api");
+    const getCFResource = apiCFResource.addResource("get");
+    // Cria o método GET
+    getCFResource.addMethod("GET", new LambdaIntegration(cfLambda));
+    // Vincula um domínio ao cloudfront (CDN)
+    // https://site.marciocadev.com/api/get
+    // https://site.marciocadev.com/
+    const cloudfrontUrl = this.setCloudfrontSubDomain(
+      "site",
+      siteBucket,
+      gatewayCloudfront
+    );
+    new CfnOutput(this, "MyCloudfrontUrl", {
+      value: cloudfrontUrl,
+      exportName: "my-cloudfront-url",
     });
   }
 }
