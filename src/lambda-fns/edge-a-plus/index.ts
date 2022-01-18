@@ -51,13 +51,5 @@ export const handler = async (event: any) => {
     },
   ];
 
-  const headerRP = "Referrer-Policy";
-  headers[headerRP.toLowerCase()] = [
-    {
-      key: headerRP,
-      value: "no-referrer",
-    },
-  ];
-
   return response;
 };

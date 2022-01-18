@@ -65,6 +65,36 @@ Object {
         ],
       },
     },
+    "MyCloudfrontAPlusUrl": Object {
+      "Export": Object {
+        "Name": "my-cloudfront-a-plus-url",
+      },
+      "Value": "https://site-a-plus.marciocadev.com",
+    },
+    "MyCloudfrontBMinusUrl": Object {
+      "Export": Object {
+        "Name": "my-cloudfront-b-minus-url",
+      },
+      "Value": "https://site-b-minus.marciocadev.com",
+    },
+    "MyCloudfrontBUrl": Object {
+      "Export": Object {
+        "Name": "my-cloudfront-b-url",
+      },
+      "Value": "https://site-b.marciocadev.com",
+    },
+    "MyCloudfrontDPlusUrl": Object {
+      "Export": Object {
+        "Name": "my-cloudfront-d-plus-url",
+      },
+      "Value": "https://site-d-plus.marciocadev.com",
+    },
+    "MyCloudfrontFUrl": Object {
+      "Export": Object {
+        "Name": "my-cloudfront-f-url",
+      },
+      "Value": "https://site-f.marciocadev.com",
+    },
     "MyCloudfrontUrl": Object {
       "Export": Object {
         "Name": "my-cloudfront-url",
@@ -86,12 +116,12 @@ Object {
     },
   },
   "Resources": Object {
-    "CloudfrontDomain21E79F93": Object {
+    "CloudfrontDomainsite7B793E60": Object {
       "Properties": Object {
         "AliasTarget": Object {
           "DNSName": Object {
             "Fn::GetAtt": Array [
-              "WebDistributionCFDistributionFD4FCA33",
+              "WebDistributionsiteCFDistribution624350C8",
               "DomainName",
             ],
           },
@@ -107,6 +137,131 @@ Object {
         },
         "HostedZoneId": "Z014672621L0K2RACEWVV",
         "Name": "site.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "CloudfrontDomainsiteaplus72217A0C": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "WebDistributionsiteaplusCFDistributionD9970475",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::FindInMap": Array [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "site-a-plus.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "CloudfrontDomainsitebEDE6A58D": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "WebDistributionsitebCFDistributionADAEE839",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::FindInMap": Array [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "site-b.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "CloudfrontDomainsitebminusD6BD5693": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "WebDistributionsitebminusCFDistributionD00E5D33",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::FindInMap": Array [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "site-b-minus.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "CloudfrontDomainsitedplus905FA344": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "WebDistributionsitedplusCFDistribution292557C9",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::FindInMap": Array [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "site-d-plus.marciocadev.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "CloudfrontDomainsitefE50D5794": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::GetAtt": Array [
+              "WebDistributionsitefCFDistribution510E3382",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::FindInMap": Array [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z014672621L0K2RACEWVV",
+        "Name": "site-f.marciocadev.com.",
         "Type": "A",
       },
       "Type": "AWS::Route53::RecordSet",
@@ -387,7 +542,7 @@ Object {
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "d3d4040842929bbb40810f09dd98d3c750d6a9549f31e97b304e097a027a2d45.zip",
+          "S3Key": "a30a77abef38779ec63b227f30f691cc780c6a0444fed64cf59f2c22e015728b.zip",
         },
         "FunctionName": "EdgeLambda",
         "Handler": "index.handler",
@@ -400,6 +555,351 @@ Object {
         "Runtime": "nodejs14.x",
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "EdgeAPlus7C031B53": Object {
+      "DependsOn": Array [
+        "EdgeAPlusServiceRoleEED37BDC",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "d0bd4505ba98b4d8098a9ef384811fc74f34e6920c7c916b2e44f95a2d974f2d.zip",
+        },
+        "FunctionName": "EdgeAPlusLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "EdgeAPlusServiceRoleEED37BDC",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EdgeAPlusServiceRoleEED37BDC": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EdgeAPlusVersion88C548FE": Object {
+      "Properties": Object {
+        "FunctionName": Object {
+          "Ref": "EdgeAPlus7C031B53",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
+    },
+    "EdgeBB9885255": Object {
+      "DependsOn": Array [
+        "EdgeBServiceRoleCDFB6ED9",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "3a43aded8efb83175c8f87e8fc33be2933ee23e8ad97ffc9b32d0e55915612c8.zip",
+        },
+        "FunctionName": "EdgeBLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "EdgeBServiceRoleCDFB6ED9",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EdgeBMinus8762308A": Object {
+      "DependsOn": Array [
+        "EdgeBMinusServiceRole27C8B9DA",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "11fd0e5ba29badf87b582a0ce5d132994424c88608c04094f846ea3e81cb66dc.zip",
+        },
+        "FunctionName": "EdgeBMinusLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "EdgeBMinusServiceRole27C8B9DA",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EdgeBMinusServiceRole27C8B9DA": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EdgeBMinusVersion14EF73A5": Object {
+      "Properties": Object {
+        "FunctionName": Object {
+          "Ref": "EdgeBMinus8762308A",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
+    },
+    "EdgeBServiceRoleCDFB6ED9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EdgeBVersion6000340E": Object {
+      "Properties": Object {
+        "FunctionName": Object {
+          "Ref": "EdgeBB9885255",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
+    },
+    "EdgeDPlusE706C0C4": Object {
+      "DependsOn": Array [
+        "EdgeDPlusServiceRoleAA471453",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "241e392f72c353172e58eda9cdf65aa4c76ac4b2b0a9e1730fb17d631fb138c1.zip",
+        },
+        "FunctionName": "EdgeDPlusLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "EdgeDPlusServiceRoleAA471453",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EdgeDPlusServiceRoleAA471453": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EdgeDPlusVersionA05697D9": Object {
+      "Properties": Object {
+        "FunctionName": Object {
+          "Ref": "EdgeDPlusE706C0C4",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
+    },
+    "EdgeFD085C4EE": Object {
+      "DependsOn": Array [
+        "EdgeFServiceRole10BBE238",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "f226e416cbb6520582888018170c4f1a3a1167582eb4daeb3520ce61603767b9.zip",
+        },
+        "FunctionName": "EdgeFLambda",
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "EdgeFServiceRole10BBE238",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "EdgeFServiceRole10BBE238": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "edgelambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "EdgeFVersion065026BE": Object {
+      "Properties": Object {
+        "FunctionName": Object {
+          "Ref": "EdgeFD085C4EE",
+        },
+      },
+      "Type": "AWS::Lambda::Version",
     },
     "EdgeServiceRole14D43657": Object {
       "Properties": Object {
@@ -1036,7 +1536,7 @@ Object {
           },
         ],
         "SourceObjectKeys": Array [
-          "a6d122b5129678834482d23aa5e57a2f47e7ee9497039105508613d8bc0da239.zip",
+          "686cf3e6894b8581c23f3e6136241613e24139a5170eac4951d72b8e3b8e4585.zip",
         ],
       },
       "Type": "Custom::CDKBucketDeployment",
@@ -1155,7 +1655,7 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "WebDistributionCFDistributionFD4FCA33": Object {
+    "WebDistributionsiteCFDistribution624350C8": Object {
       "Properties": Object {
         "DistributionConfig": Object {
           "Aliases": Array [
@@ -1217,6 +1717,706 @@ Object {
                 "EventType": "origin-response",
                 "LambdaFunctionARN": Object {
                   "Ref": "EdgeVersion78056BD4",
+                },
+              },
+            ],
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::GetAtt": Array [
+                  "MySiteBucket1481A238",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "origin1",
+              "S3OriginConfig": Object {},
+            },
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": Object {
+                "HTTPPort": 80,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginProtocolPolicy": "https-only",
+                "OriginReadTimeout": 30,
+                "OriginSSLProtocols": Array [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "GatewayCloudfrontE2028825",
+                    },
+                    ".execute-api.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin2",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "GatewayCloudfrontDeploymentStageprod37CEDBBB",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "WebDistributionsiteaplusCFDistributionD9970475": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "Aliases": Array [
+            "site-a-plus.marciocadev.com",
+          ],
+          "CacheBehaviors": Array [
+            Object {
+              "AllowedMethods": Array [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+              ],
+              "CachedMethods": Array [
+                "GET",
+                "HEAD",
+              ],
+              "Compress": true,
+              "ForwardedValues": Object {
+                "Cookies": Object {
+                  "Forward": "none",
+                },
+                "QueryString": false,
+              },
+              "LambdaFunctionAssociations": Array [
+                Object {
+                  "EventType": "origin-response",
+                  "LambdaFunctionARN": Object {
+                    "Ref": "EdgeAPlusVersion88C548FE",
+                  },
+                },
+              ],
+              "PathPattern": "api/*",
+              "TargetOriginId": "origin2",
+              "ViewerProtocolPolicy": "redirect-to-https",
+            },
+          ],
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "LambdaFunctionAssociations": Array [
+              Object {
+                "EventType": "origin-response",
+                "LambdaFunctionARN": Object {
+                  "Ref": "EdgeAPlusVersion88C548FE",
+                },
+              },
+            ],
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::GetAtt": Array [
+                  "MySiteBucket1481A238",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "origin1",
+              "S3OriginConfig": Object {},
+            },
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": Object {
+                "HTTPPort": 80,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginProtocolPolicy": "https-only",
+                "OriginReadTimeout": 30,
+                "OriginSSLProtocols": Array [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "GatewayCloudfrontE2028825",
+                    },
+                    ".execute-api.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin2",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "GatewayCloudfrontDeploymentStageprod37CEDBBB",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "WebDistributionsitebCFDistributionADAEE839": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "Aliases": Array [
+            "site-b.marciocadev.com",
+          ],
+          "CacheBehaviors": Array [
+            Object {
+              "AllowedMethods": Array [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+              ],
+              "CachedMethods": Array [
+                "GET",
+                "HEAD",
+              ],
+              "Compress": true,
+              "ForwardedValues": Object {
+                "Cookies": Object {
+                  "Forward": "none",
+                },
+                "QueryString": false,
+              },
+              "LambdaFunctionAssociations": Array [
+                Object {
+                  "EventType": "origin-response",
+                  "LambdaFunctionARN": Object {
+                    "Ref": "EdgeBVersion6000340E",
+                  },
+                },
+              ],
+              "PathPattern": "api/*",
+              "TargetOriginId": "origin2",
+              "ViewerProtocolPolicy": "redirect-to-https",
+            },
+          ],
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "LambdaFunctionAssociations": Array [
+              Object {
+                "EventType": "origin-response",
+                "LambdaFunctionARN": Object {
+                  "Ref": "EdgeBVersion6000340E",
+                },
+              },
+            ],
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::GetAtt": Array [
+                  "MySiteBucket1481A238",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "origin1",
+              "S3OriginConfig": Object {},
+            },
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": Object {
+                "HTTPPort": 80,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginProtocolPolicy": "https-only",
+                "OriginReadTimeout": 30,
+                "OriginSSLProtocols": Array [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "GatewayCloudfrontE2028825",
+                    },
+                    ".execute-api.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin2",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "GatewayCloudfrontDeploymentStageprod37CEDBBB",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "WebDistributionsitebminusCFDistributionD00E5D33": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "Aliases": Array [
+            "site-b-minus.marciocadev.com",
+          ],
+          "CacheBehaviors": Array [
+            Object {
+              "AllowedMethods": Array [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+              ],
+              "CachedMethods": Array [
+                "GET",
+                "HEAD",
+              ],
+              "Compress": true,
+              "ForwardedValues": Object {
+                "Cookies": Object {
+                  "Forward": "none",
+                },
+                "QueryString": false,
+              },
+              "LambdaFunctionAssociations": Array [
+                Object {
+                  "EventType": "origin-response",
+                  "LambdaFunctionARN": Object {
+                    "Ref": "EdgeBMinusVersion14EF73A5",
+                  },
+                },
+              ],
+              "PathPattern": "api/*",
+              "TargetOriginId": "origin2",
+              "ViewerProtocolPolicy": "redirect-to-https",
+            },
+          ],
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "LambdaFunctionAssociations": Array [
+              Object {
+                "EventType": "origin-response",
+                "LambdaFunctionARN": Object {
+                  "Ref": "EdgeBMinusVersion14EF73A5",
+                },
+              },
+            ],
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::GetAtt": Array [
+                  "MySiteBucket1481A238",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "origin1",
+              "S3OriginConfig": Object {},
+            },
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": Object {
+                "HTTPPort": 80,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginProtocolPolicy": "https-only",
+                "OriginReadTimeout": 30,
+                "OriginSSLProtocols": Array [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "GatewayCloudfrontE2028825",
+                    },
+                    ".execute-api.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin2",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "GatewayCloudfrontDeploymentStageprod37CEDBBB",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "WebDistributionsitedplusCFDistribution292557C9": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "Aliases": Array [
+            "site-d-plus.marciocadev.com",
+          ],
+          "CacheBehaviors": Array [
+            Object {
+              "AllowedMethods": Array [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+              ],
+              "CachedMethods": Array [
+                "GET",
+                "HEAD",
+              ],
+              "Compress": true,
+              "ForwardedValues": Object {
+                "Cookies": Object {
+                  "Forward": "none",
+                },
+                "QueryString": false,
+              },
+              "LambdaFunctionAssociations": Array [
+                Object {
+                  "EventType": "origin-response",
+                  "LambdaFunctionARN": Object {
+                    "Ref": "EdgeDPlusVersionA05697D9",
+                  },
+                },
+              ],
+              "PathPattern": "api/*",
+              "TargetOriginId": "origin2",
+              "ViewerProtocolPolicy": "redirect-to-https",
+            },
+          ],
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "LambdaFunctionAssociations": Array [
+              Object {
+                "EventType": "origin-response",
+                "LambdaFunctionARN": Object {
+                  "Ref": "EdgeDPlusVersionA05697D9",
+                },
+              },
+            ],
+            "TargetOriginId": "origin1",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": Array [
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "DomainName": Object {
+                "Fn::GetAtt": Array [
+                  "MySiteBucket1481A238",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "origin1",
+              "S3OriginConfig": Object {},
+            },
+            Object {
+              "ConnectionAttempts": 3,
+              "ConnectionTimeout": 10,
+              "CustomOriginConfig": Object {
+                "HTTPPort": 80,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginProtocolPolicy": "https-only",
+                "OriginReadTimeout": 30,
+                "OriginSSLProtocols": Array [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Ref": "GatewayCloudfrontE2028825",
+                    },
+                    ".execute-api.",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ".",
+                    Object {
+                      "Ref": "AWS::URLSuffix",
+                    },
+                  ],
+                ],
+              },
+              "Id": "origin2",
+              "OriginPath": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "/",
+                    Object {
+                      "Ref": "GatewayCloudfrontDeploymentStageprod37CEDBBB",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": Object {
+            "AcmCertificateArn": "arn:aws:acm:us-east-1:549672552044:certificate/cd2994c4-66ac-4a60-869d-31ec7c5428d3",
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "WebDistributionsitefCFDistribution510E3382": Object {
+      "Properties": Object {
+        "DistributionConfig": Object {
+          "Aliases": Array [
+            "site-f.marciocadev.com",
+          ],
+          "CacheBehaviors": Array [
+            Object {
+              "AllowedMethods": Array [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+              ],
+              "CachedMethods": Array [
+                "GET",
+                "HEAD",
+              ],
+              "Compress": true,
+              "ForwardedValues": Object {
+                "Cookies": Object {
+                  "Forward": "none",
+                },
+                "QueryString": false,
+              },
+              "LambdaFunctionAssociations": Array [
+                Object {
+                  "EventType": "origin-response",
+                  "LambdaFunctionARN": Object {
+                    "Ref": "EdgeFVersion065026BE",
+                  },
+                },
+              ],
+              "PathPattern": "api/*",
+              "TargetOriginId": "origin2",
+              "ViewerProtocolPolicy": "redirect-to-https",
+            },
+          ],
+          "DefaultCacheBehavior": Object {
+            "AllowedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "CachedMethods": Array [
+              "GET",
+              "HEAD",
+            ],
+            "Compress": true,
+            "ForwardedValues": Object {
+              "Cookies": Object {
+                "Forward": "none",
+              },
+              "QueryString": false,
+            },
+            "LambdaFunctionAssociations": Array [
+              Object {
+                "EventType": "origin-response",
+                "LambdaFunctionARN": Object {
+                  "Ref": "EdgeFVersion065026BE",
                 },
               },
             ],

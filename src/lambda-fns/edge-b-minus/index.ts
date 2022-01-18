@@ -30,8 +30,7 @@ export const handler = async (event: any) => {
   headers[headerCSP.toLowerCase()] = [
     {
       key: headerCSP,
-      value:
-        "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';",
+      value: "frame-ancestors 'none'",
     },
   ];
 
@@ -40,22 +39,6 @@ export const handler = async (event: any) => {
     {
       key: headerXFO,
       value: "DENY",
-    },
-  ];
-
-  const headerCTO = "X-Content-Type-Options";
-  headers[headerCTO.toLowerCase()] = [
-    {
-      key: headerCTO,
-      value: "nosniff",
-    },
-  ];
-
-  const headerRP = "Referrer-Policy";
-  headers[headerRP.toLowerCase()] = [
-    {
-      key: headerRP,
-      value: "no-referrer",
     },
   ];
 

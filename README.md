@@ -11,3 +11,6 @@
 * `projen test`
 * `projen build`
 * `projen release`
+
+# Observatory Mozilla
+* https://observatory.mozilla.org/analyze/site.marciocadev.com

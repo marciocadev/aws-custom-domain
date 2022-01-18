@@ -1,8 +1,8 @@
-import { join } from "path";
 import { Stack, StackProps } from "aws-cdk-lib";
 import { RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Certificate, ICertificate } from "aws-cdk-lib/aws-certificatemanager";
 import {
+  Behavior,
   CloudFrontAllowedMethods,
   CloudFrontWebDistribution,
   CloudFrontWebDistributionProps,
@@ -13,8 +13,7 @@ import {
   SSLMethod,
   ViewerCertificate,
 } from "aws-cdk-lib/aws-cloudfront";
-import { Runtime, Version } from "aws-cdk-lib/aws-lambda";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { IVersion } from "aws-cdk-lib/aws-lambda";
 import {
   ARecord,
   HostedZone,
@@ -75,42 +74,60 @@ export class CustomDomainStack extends Stack {
   setCloudfrontSubDomain(
     subDomain: string,
     bucket?: Bucket,
-    gateway?: RestApi
+    gateway?: RestApi,
+    edge?: IVersion
   ): string {
     const domainName = subDomain + "." + env.zoneName;
     const url = "https://" + domainName;
 
-    const edge = new NodejsFunction(this, "Edge", {
-      functionName: "EdgeLambda",
-      entry: join(__dirname, "lambda-fns/edge/index.ts"),
-      handler: "handler",
-      runtime: Runtime.NODEJS_14_X,
-    });
-
-    const edgeVersion = new Version(this, "EdgeVersion", {
-      lambda: edge,
-    });
-
     let originConfigs: SourceConfiguration[] = [];
     if (bucket) {
+      let bucketBehaviors: Behavior = {};
+      if (edge) {
+        bucketBehaviors = {
+          isDefaultBehavior: true,
+          lambdaFunctionAssociations: [
+            {
+              eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
+              lambdaFunction: edge,
+            },
+          ],
+        };
+      } else {
+        bucketBehaviors = {
+          isDefaultBehavior: true,
+        };
+      }
+
       const bucketSourceConfiguration: SourceConfiguration = {
         s3OriginSource: { s3BucketSource: bucket },
-        behaviors: [
-          {
-            isDefaultBehavior: true,
-            lambdaFunctionAssociations: [
-              {
-                eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
-                lambdaFunction: edgeVersion,
-              },
-            ],
-          },
-        ],
+        behaviors: [bucketBehaviors],
       };
       originConfigs.push(bucketSourceConfiguration);
     }
 
     if (gateway) {
+      let gatewayBehaviors = {};
+      if (edge) {
+        gatewayBehaviors = {
+          isDefaultBehavior: false,
+          pathPattern: "api/*",
+          allowedMethods: CloudFrontAllowedMethods.ALL,
+          lambdaFunctionAssociations: [
+            {
+              eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
+              lambdaFunction: edge,
+            },
+          ],
+        };
+      } else {
+        gatewayBehaviors = {
+          isDefaultBehavior: false,
+          pathPattern: "api/*",
+          allowedMethods: CloudFrontAllowedMethods.ALL,
+        };
+      }
+
       const gatewaySourceConfiguration: SourceConfiguration = {
         customOriginSource: {
           domainName:
@@ -124,19 +141,7 @@ export class CustomDomainStack extends Stack {
           httpsPort: 443,
           originProtocolPolicy: OriginProtocolPolicy.HTTPS_ONLY,
         },
-        behaviors: [
-          {
-            isDefaultBehavior: false,
-            pathPattern: "api/*",
-            allowedMethods: CloudFrontAllowedMethods.ALL,
-            lambdaFunctionAssociations: [
-              {
-                eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
-                lambdaFunction: edgeVersion,
-              },
-            ],
-          },
-        ],
+        behaviors: [gatewayBehaviors],
       };
       originConfigs.push(gatewaySourceConfiguration);
     }
@@ -144,7 +149,7 @@ export class CustomDomainStack extends Stack {
     const props: CloudFrontWebDistributionProps = {
       originConfigs: originConfigs,
       viewerCertificate: ViewerCertificate.fromAcmCertificate(
-        Certificate.fromCertificateArn(this, "certificate", env.certificateArn),
+        this.certificate, //Certificate.fromCertificateArn(this, "certificate", env.certificateArn),
         {
           aliases: [domainName],
           sslMethod: SSLMethod.SNI,
@@ -156,11 +161,11 @@ export class CustomDomainStack extends Stack {
     // Cria o Cloudfront (CDN) para expor o site
     const distribution = new CloudFrontWebDistribution(
       this,
-      "WebDistribution",
+      "WebDistribution-" + subDomain,
       props
     );
 
-    new ARecord(this, "CloudfrontDomain", {
+    new ARecord(this, "CloudfrontDomain-" + subDomain, {
       recordName: subDomain,
       zone: this.hostedZone,
       target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
