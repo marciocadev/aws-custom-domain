@@ -13,4 +13,21 @@
 * `projen release`
 
 # Observatory Mozilla
+## F note
+* https://site-f.marciocadev.com/
+* https://observatory.mozilla.org/analyze/site-f.marciocadev.com
+## D+ note
+* https://site-d-plus.marciocadev.com/
+* https://observatory.mozilla.org/analyze/site-d-plus.marciocadev.com
+## B- note
+* https://site-b-minus.marciocadev.com/
+* https://observatory.mozilla.org/analyze/site-b-minus.marciocadev.com
+## B note
+* https://site-b.marciocadev.com/
+* https://observatory.mozilla.org/analyze/site-b.marciocadev.com
+## A+ note
+* https://site-a-plus.marciocadev.com/
+* https://observatory.mozilla.org/analyze/site-a-plus.marciocadev.com
+## Best header
+* https://site.marciocadev.com
 * https://observatory.mozilla.org/analyze/site.marciocadev.com
